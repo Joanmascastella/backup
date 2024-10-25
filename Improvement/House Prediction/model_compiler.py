@@ -12,14 +12,17 @@ class HousePriceModel(nn.Module):
         self.fc1 = nn.Linear(input_size, 128)  # First layer (input to hidden)
         self.relu1 = nn.ReLU()
 
-        self.fc2 = nn.Linear(128, 64)  # Second hidden layer
+        self.fc2 = nn.Linear(128, 96)  # Second hidden layer
         self.relu2 = nn.ReLU()
 
-        self.fc3 = nn.Linear(64, 32)  # Third hidden layer
+        self.fc3 = nn.Linear(96, 64)  # Third hidden layer
         self.relu3 = nn.ReLU()
 
-        self.fc4 = nn.Linear(32, 16) # Fourth hidden layer
+        self.fc4 = nn.Linear(64, 32) # Fourth hidden layer
         self.relu4 = nn.ReLU()
+
+        self.fc5 = nn.Linear(32, 16)  # Fifth hidden layer
+        self.relu5 = nn.ReLU()
 
         self.output = nn.Linear(16, 1)  # Output layer (single value for house price prediction)
 
@@ -29,6 +32,7 @@ class HousePriceModel(nn.Module):
         x = self.relu2(self.fc2(x))
         x = self.relu3(self.fc3(x))
         x = self.relu4(self.fc4(x))
+        x = self.relu5(self.fc5(x))
         x = torch.clamp(self.output(x), min=0)
         return x
 
